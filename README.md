@@ -1,5 +1,6 @@
 # Projeto Tarefas Kanban
-
+Vídeo: https://drive.google.com/file/d/12Ame_XIjsRQdLzcQFWEgfAViQBa6hlku/view?usp=sharing
+Github: https://github.com/amandaespindulamachado/taskreport-dart 
 Este projeto é um script Dart que processa uma lista de tarefas simuladas, trata valores nulos e gera um relatório de status, valores e horas.
 
 ## Como usar
