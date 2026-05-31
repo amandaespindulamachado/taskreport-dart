@@ -1,0 +1,12 @@
+name: tarefas_kanban
+description: Projeto Dart para processamento e relatório de tarefas com análise de status.
+version: 1.0.0
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+# Este projeto é um script Dart simples sem dependências externas.
+dependencies:
+  # Sem dependências adicionais
+
+dev_dependencies:
+  test: ^1.24.0
