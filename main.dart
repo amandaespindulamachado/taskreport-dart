@@ -184,8 +184,13 @@ int converterHoras(dynamic horas) {
 void main() {
   // RF01: Transformar mapas em objetos
   List<Tarefa> listaTarefas = dadosTarefas.map((item) => converterMapParaTarefa(item)).toList();
-
   print("=== RELATÓRIO FINAL DE TAREFAS ===\n");
+
+  // RF06: Exibir todas as tarefas convertidas
+  print("Tarefas convertidas:");
+  for (var t in listaTarefas) {
+    t.exibirResumo();
+  }
 
   // RF07: Filtrar
   var concluidas = listaTarefas.where((t) => t.status == 'concluída').toList();
@@ -224,7 +229,7 @@ void main() {
   }
   print("");
 
-  // RF11: Dados incompletos
+  // RF11: Dados incompletos (ampliado)
   print("Tarefas com dados incompletos:");
   bool temIncompletos = false;
   for (var original in dadosTarefas) {
@@ -232,13 +237,30 @@ void main() {
     if (original['titulo'] == null || original['titulo'].toString().trim().isEmpty) {
       problemas.add("título ausente");
     }
-    if (original['horas'] == null) {
+    if (original['horas'] == null || original['horas'].toString().trim().isEmpty) {
       problemas.add("horas ausentes");
     }
     if (original['responsavel'] == null || original['responsavel'].toString().trim().isEmpty) {
       problemas.add("responsável ausente");
     }
-    
+    if (original['status'] == null || original['status'].toString().trim().isEmpty) {
+      problemas.add("status ausente");
+    }
+    if (original['prioridade'] == null || original['prioridade'].toString().trim().isEmpty) {
+      problemas.add("prioridade ausente");
+    }
+
+    // Detectar valor ausente ou inválido: se null -> ausente; se contém dígito !=0 e conversão dá 0.0 -> inválido
+    if (original['valor'] == null) {
+      problemas.add("valor ausente");
+    } else {
+      double vConv = converterValor(original['valor']);
+      String vStr = original['valor'].toString();
+      if (vConv == 0.0 && RegExp(r'[1-9]').hasMatch(vStr)) {
+        problemas.add("valor inválido");
+      }
+    }
+
     if (problemas.isNotEmpty) {
       print("- ID ${original['id']}: ${problemas.join(' ou ')}");
       temIncompletos = true;
